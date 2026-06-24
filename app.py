@@ -32,9 +32,49 @@ st.markdown("""
     }
     .sub-title {
         color: #ff007f; /* Pink Neon / Laser */
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 35px;
+        letter-spacing: 1.5px;
+        text-shadow: 0px 0px 10px rgba(255, 0, 127, 0.4);
+    }
+    
+    /* Panel Kontrol Atas (Top Control Lobby) */
+    .top-navbar-card {
+        background: rgba(30, 31, 41, 0.85);
+        border: 2px solid #ff007f; /* Garis laser pink */
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 0 20px rgba(255, 0, 127, 0.15);
+        backdrop-filter: blur(10px);
+    }
+
+    /* Kotak Fitur yang Diubah Menjadi Info Game Quest */
+    .info-badge {
+        background: linear-gradient(135deg, #7d12ff 0%, #4b00b0 100%); /* Purple Arcade */
+        color: white;
         padding: 25px 20px;
         border-radius: 14px;
+        text-align: center;
+        font-weight: bold;
         min-height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 1px solid #ff007f;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+    .info-badge-blue {
+        background: linear-gradient(135deg, #00f2fe 0%, #0072ff 100%); /* Cyber Cyan */
+        color: #1b1c23;
+        padding: 25px 20px;
+        border-radius: 14px;
+        text-align: center;
+        font-weight: bold;
+        min-height: 140px;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         border: 1px solid #00f2fe;
@@ -78,57 +118,18 @@ st.markdown("""
     div[data-testid="stChatInput"] textarea {
         color: #00f2fe !important; /* Teks menyala cyan neon */
         background-color: transparent !important; /* Dibuat transparan agar menyatu */
-        display: flex;
-        font-weight: bold;
-        text-align: center;
-        text-align: center;
-    }
-        color: #1b1c23;
-        background: linear-gradient(135deg, #00f2fe 0%, #0072ff 100%); /* Cyber Cyan */
-    .info-badge-blue {
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-bottom: 35px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         border: none !important; /* Menghilangkan border ganda yang bikin melorot */
-        letter-spacing: 1.5px;
-        border: 1px solid #ff007f;
-        text-shadow: 0px 0px 10px rgba(255, 0, 127, 0.4);
-    }
         font-family: monospace;
-        justify-content: center;
-        min-height: 140px;
-        display: flex;
-        flex-direction: column;
-    
-    /* Panel Kontrol Atas (Top Control Lobby) */
-    .top-navbar-card {
-        background: rgba(30, 31, 41, 0.85);
-        border: 2px solid #ff007f; /* Garis laser pink */
-        border-radius: 16px;
-        padding: 25px;
-        margin-bottom: 25px;
-        text-align: center;
-        font-weight: bold;
-        box-shadow: 0 0 20px rgba(255, 0, 127, 0.15);
-        backdrop-filter: blur(10px);
         box-shadow: none !important;
-        border-radius: 14px;
-
     }
     
-
     /* Mengatur dropdown seleksi standar (select) agar tetap konsisten */
-
     select {
         color: #00f2fe !important;
-
         background-color: #15161b !important;
         border: 1px solid #ff007f !important;
         font-family: monospace;
-
     }
-
     
     /* Menyesuaikan warna tombol panah agar ikut menyala bergaya gaming */
     div[data-testid="stChatInput"] button {
@@ -156,61 +157,40 @@ st.markdown("""
         border-radius: 10px !important;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         transition: all 0.3s ease !important;
-
     }
-
     div.stButton > button:first-child:hover {
         transform: scale(1.01) !important;
-
         box-shadow: 0 0 20px rgba(0, 242, 254, 0.5) !important;
-
     }
-
     
-
     /* Tombol Keluar Sesi (Quit Game) */
-
     div.stButton > button[kind="primary"] {
-
         background: #2a2c35 !important;
         color: #ff007f !important;
-
         font-weight: bold !important;
         border: 1px solid #ff007f !important;
-
         border-radius: 10px !important;
-
     }
     div.stButton > button[kind="primary"]:hover {
-
         background: #ff007f !important;
         color: white !important;
-
         box-shadow: 0 0 15px rgba(255, 0, 127, 0.4) !important;
-
     }
-
 
     /* Hilangkan elemen standar Streamlit */
     footer {visibility: hidden;}
     header {background-color: transparent !important;}
     </style>
-
 """, unsafe_allow_html=True)
 
 # --- INISIALISASI SESSION STATE ---
 if "messages" not in st.session_state:
-
     st.session_state.messages = []
-
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
-
 if "current_persona" not in st.session_state:
-
     st.session_state.current_persona = ""
 if "current_topic" not in st.session_state:
-
     st.session_state.current_topic = ""
 
 # --- HALAMAN UTAMA APPLICATION ---
@@ -238,18 +218,12 @@ if not st.session_state.logged_in:
             st.error("Gagal! Isi nama player dan Token kamu untuk membuka gerbang game!")
     st.markdown("</div>", unsafe_allow_html=True) # Tag kontainer ditutup dengan benar di halaman utama
 
-
     # Grid Menu Info Utama ala Quest Selection
-
     col1, col2, col3 = st.columns(3)
-
     with col1:
         st.markdown("<div class='info-badge-blue'>⚡ LIVE CHAT INTERACTION<br><br><span style='font-weight:normal; font-size:0.85rem;'>Praktik bahasa Arab seru berformat RPG Chatting, latih kelancaran bicaramu secara real-time!</span></div>", unsafe_allow_html=True)
-
     with col2:
-
         st.markdown("<div class='info-badge'>📚 MATERI LENGKAP X MA<br><br><span style='font-weight:normal; font-size:0.85rem;'>Selesaikan 3 stage obrolan berbobot: Al-Hayah Al-Yaumiyah, Al-Mihnah, dan Al-Usroh!</span></div>", unsafe_allow_html=True)
-
     with col3:
         st.markdown("<div class='info-badge-purple'>🤖 CHOOSE YOUR BOT PARTNER<br><br><span style='font-weight:normal; font-size:0.85rem;'>Dua Coach handal siap memandu petualangan kalammu: Ustadz Khalid atau Ustadzah Khaulah.</span></div>", unsafe_allow_html=True)
 
@@ -267,20 +241,13 @@ else:
             "Pilih Area Quest Percakapan (Topik):",
             [
                 "Al-Hayah Al-Yaumiyah (Kehidupan Sehari-hari / الحياة اليومية)", 
-
                 "Al-Mihnah (Profesi / المهنة)",
-
                 "Al-Usroh (Kehidupan Keluarga / الأسرة)"
-
             ]
-
         )
-
     st.markdown("</div>", unsafe_allow_html=True) 
 
-
     # PROMPT UTAMA SYSTEM AI (Logika Tetap Terjaga)
-
     gender_pembimbing = "seorang Ustadz laki-laki bernama Ustadz Khalid" if ustadz_pilihan == "Ustadz Khalid" else "seorang Ustadzah perempuan bernama Ustadzah Khaulah"
     
     system_instruction = f"""
@@ -309,25 +276,18 @@ else:
 
     # Input Kotak Ketikan Siswa
     user_input = st.chat_input("Tulis balasan bahasa Arab atau Indonesia kamu di sini...")
-
     
     # Tombol keluar dari alur normal di bawah input chat
-
     st.markdown("<div style='margin-top: 15px; margin-bottom: 25px;'>", unsafe_allow_html=True)
-
     if st.button("QUIT GAME & LOGOUT ❌", type="primary", use_container_width=True):
-
         st.session_state.clear()
         st.rerun()
     st.markdown("</div>", unsafe_allow_html=True)
 
-
     # Logika Pengiriman Pesan
     if user_input:
         with st.chat_message("user"):
-
             st.markdown(user_input)
-
         st.session_state.messages.append({"role": "user", "content": user_input})
         
         try:
@@ -340,27 +300,18 @@ else:
             bot_response = ""
             for attempt in range(3):
                 try:
-
                     response = client.models.generate_content(
-
                         model="gemini-2.5-flash",
-
                         contents=f"{full_context}\nSiswa mengatakan: {user_input}\nBerikan respons Anda sebagai pengajar:"
-
                     )
                     bot_response = response.text
-
                     break
                 except Exception as e:
-
                     if "503" in str(e) and attempt < 2:
-
                         time.sleep(2)
                         continue
                     else:
-
                         raise e
-
 
             if bot_response:
                 with st.chat_message("assistant"):
